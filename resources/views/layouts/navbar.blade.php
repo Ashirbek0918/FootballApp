@@ -31,18 +31,18 @@
                 <!--================================-->
                 <!-- Languages Dropdown Start -->
                 <!--================================-->
-                <li class="list-inline-item dropdown hidden-xs hidden-sm">
-                    <a class="text-muted" href="javascript:void(0)" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{  asset('assets/images/flags/'.app()->getLocale().'.png') }}" class="mg-b-5 wd-20 img-fluid" alt="">
-                    </a>
-                    <ul class="dropdown-menu languages-dropdown shadow-2">
-                        @foreach(config('app.languages') as $lang)
-                            <li>
-                                <a href="{{ route('dashboard.changeLang',$lang) }}" data-lang="en"><img src="{{ asset('assets/images/flags/'.$lang.'.png') }}" class="img-fluid wd-20" alt=""> <span>{{ $lang }}</span></a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
+{{--                <li class="list-inline-item dropdown hidden-xs hidden-sm">--}}
+{{--                    <a class="text-muted" href="javascript:void(0)" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                        <img src="{{  asset('assets/images/flags/'.app()->getLocale().'.png') }}" class="mg-b-5 wd-20 img-fluid" alt="">--}}
+{{--                    </a>--}}
+{{--                    <ul class="dropdown-menu languages-dropdown shadow-2">--}}
+{{--                        @foreach(config('app.languages') as $lang)--}}
+{{--                            <li>--}}
+{{--                                <a href="{{ route('dashboard.changeLang',$lang) }}" data-lang="en"><img src="{{ asset('assets/images/flags/'.$lang.'.png') }}" class="img-fluid wd-20" alt=""> <span>{{ $lang }}</span></a>--}}
+{{--                            </li>--}}
+{{--                        @endforeach--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
                 <!--/ Languages Dropdown End -->
                 <!--================================-->
                 <!-- Notifications Dropdown Start -->
@@ -220,9 +220,9 @@
                         <li>
                             <a href="page-unlock.html"><i class="icon-lock"></i><span>Lockscreen</span></a>
                         </li>
-                        <li>
-                            <a href="{{ route('auth.logout') }}"><i class="icon-logout"></i><span>Sing Out</span></a>
-                        </li>
+{{--                        <li>--}}
+{{--                            <a href="{{ route('auth.logout') }}"><i class="icon-logout"></i><span>Sing Out</span></a>--}}
+{{--                        </li>--}}
                     </ul>
                 </li>
                 <!-- Profile Dropdown End -->
