@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\web\AuthController;
+use App\Http\Controllers\web\DashboardController;
+use App\Http\Controllers\web\PositionController;
 use Illuminate\Support\Facades\Route;
 
 /*

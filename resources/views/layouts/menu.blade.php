@@ -1,5 +1,5 @@
 <div class="page-sidebar">
-    <a class="logo-box" href="{{ route('organizations.index') }}">
+    <a class="logo-box" href="">
         <span><img src="{{ asset('assets/images/logo-white.png')}}" alt=""></span>
         <i class="ion-aperture" id="fixed-sidebar-toggle-button"></i>
         <i class="ion-ios-close-empty" id="sidebar-toggle-button-close"></i>

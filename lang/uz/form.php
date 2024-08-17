@@ -80,8 +80,12 @@ return [
         'products_count' => 'Omborda mavjud',
     ],
     'positions' => [
-        'position' => "Pozitsiyasi",
+        'position' => "Pozitsiya",
         'positions' => 'Pozitsiyalar',
+    ],
+    'gamers' => [
+        'gamer' => "Futbolchi",
+        'gamers' => 'Futbolchilar',
     ],
     'branches' => [
         'branch' => "Filial",

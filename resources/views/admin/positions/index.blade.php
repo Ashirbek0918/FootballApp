@@ -1,13 +1,6 @@
 @extends('dashboard.home')
-
 @section('content')
     <div class="col-md-12 col-lg-12">
-{{--        <div class="row mb-3">--}}
-{{--            <div class="col-md-13 text-right">--}}
-{{--                <a href="{{ route('positions.create') }}" class="btn btn-primary">{{ __('form.add') }}</a>--}}
-
-{{--            </div>--}}
-{{--        </div>--}}
         <div class="card mb-4 shadow-1">
 
             <div class="card-header">
@@ -23,8 +16,7 @@
                     <tr>
                         <th>#</th>
                         <th>{{ __('validation.attributes.name') }}</th>
-                        <th>{{ __('form.departments.department') }}</th>
-                        <th>{{ __('form.employees.employees') }}</th>
+                        <th>{{ __('form.gamers.gamers') }}</th>
                         <th>{{ __('form.actions') }}</th>
                     </tr>
                     </thead>
@@ -32,9 +24,8 @@
                     @foreach($pagination->items() as $position)
                         <tr>
                             <th scope="row">{{ ($pagination->currentpage()-1) * $pagination->perpage() + $loop->index + 1 }}</th>
-                            <td>{{ $position->hname }}</td>
-                            <td>{{ $position->department->hname }}</td>
-                            <td>{{ $position->employees}}</td>
+                            <td>{{ $position->name }}</td>
+                            <td>{{ $position->gamers}}</td>
                             <td>
                                 <a href="{{ route("positions.edit", [$position->id]) }}">
                                     <i class="fa fa-edit text-purple button-2x"></i></a>
