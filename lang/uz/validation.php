@@ -115,6 +115,10 @@ return [
 
     'attributes' => [
         'name' => 'Nomi',
+        'surname' => 'Familiyasi',
+        'age' => 'Yoshi',
+        'weight' => 'Vazni',
+        'height' => 'Bo\'yi',
         'address' => 'Manzili',
         'description' => "Tavsifi",
         'created_at' => 'Yaratilgan vaqti',

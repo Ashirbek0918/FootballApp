@@ -6,11 +6,15 @@ $('#passport').formatter({
     'pattern': '{{aa}} {{9999999}}',
     'persistent': true
 });
-$('#pinfl').formatter({
+$('#age').formatter({
     'pattern': '{{99999999999999}}',
     'persistent': true
 });
-$('#quantity').formatter({
+$('#weight').formatter({
+    'pattern': '{{99999999999999}}',
+    'persistent': true
+});
+$('#height').formatter({
     'pattern': '{{99999999999999}}',
     'persistent': true
 });

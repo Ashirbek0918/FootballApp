@@ -36,12 +36,14 @@ class PositionService
     /**
      * @param CreatePositionActionData $actionData
      * @return PositionData
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function createPosition(CreatePositionActiondata $actionData): PositionData
     {
         $actionData->addValidationRules([
             'name' => ['required', 'string','unique:positions,name'],
         ]);
+        $actionData->validateException();
         $data = $actionData->all();
         $position = Position::query()->create($data);
         return PositionData::fromModel($position);
@@ -103,7 +105,7 @@ class PositionService
      */
     public function getPositions()
     {
-        $positions = Position::query('gamers')->get();
+        $positions = Position::query()->with('gamers')->get();
         return $positions->transform(fn(Position $position) => PositionData::fromModel($position));
     }
 

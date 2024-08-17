@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\web\AuthController;
 use App\Http\Controllers\web\DashboardController;
+use App\Http\Controllers\web\GamerController;
 use App\Http\Controllers\web\PositionController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,5 +38,14 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::put('update/{id}', 'update')->name('update');
         Route::get('delete/{id}', 'delete')->name('delete');
         Route::get('show/{id}', 'show')->name('show');
+    });
+    Route::controller(GamerController::class)->prefix('gamers')->name('gamers.')->group(function () {
+        Route::get('index', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::get('show/{id}', 'show')->name('show');
+        Route::put('update/{id}', 'update')->name('update');
+        Route::get('delete/{id}', 'delete')->name('delete');
     });
 });

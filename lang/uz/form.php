@@ -20,6 +20,7 @@ return [
         "edit_permission" => "Ruxsatni tahrirlash",
     ],
     'files' => [
+        'profile' => 'Profil rasmi',
         'files' => 'Fayllar',
         'file' => 'Fayl',
         'lang' => 'Fayl tili'
