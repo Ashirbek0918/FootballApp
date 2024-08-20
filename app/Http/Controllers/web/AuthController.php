@@ -32,14 +32,14 @@ class AuthController extends Controller
         if (auth()->check()) {
             return redirect()->route('dashboard.home')->with('res', [
                 'method' => 'success',
-                'msg' => trans('message.auth.success')
+                'msg' => trans('messages.auth.success')
             ]);
         }
         try {
             $authDataObject = $this->service->login(LoginUserActionData::createFromRequest($request));
             return to_route('dashboard.home')->with('res', [
                 'method' => 'success',
-                'msg' => trans('message.auth.success')
+                'msg' => trans('messages.auth.success')
             ]);
         } catch (Exception $e) {
             return back()->withErrors($e->getMessage());

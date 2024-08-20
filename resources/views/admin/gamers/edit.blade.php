@@ -18,7 +18,7 @@
                         <div class="form-row">
                             <div class="col-md-5 mb-3">
                                 <label for="name"
-                                       class="form-control-label">{{ __('validation.attributes.name') }}</label>
+                                       class="form-control-label">{{ __('validation.attributes.username') }}</label>
                                 <input type="text" value="{{ old('name',$item->name) }}" class="form-control"
                                        name="name" id="name" required>
                                 @if($errors->has('name'))

@@ -64,8 +64,8 @@ return [
     'medical_orders' => [
         'medical_order' => 'Tiibiy ko\'rik',
         'content' => 'Buyruq matni',
-        'description' =>'Buyruqga izoh',
-        'date' =>'Buyruq sanasi',
+        'description' => 'Buyruqga izoh',
+        'date' => 'Buyruq sanasi',
     ],
     'accident' => [
         'accident' => 'Baxtsiz hodisa',
@@ -108,6 +108,14 @@ return [
         'add_organization' => "Tashkilot qo'shish",
         'edit_organization' => "Tashkilotni tahrirlash"
     ],
+    'days' => [
+        'match_day' => 'O\'yin kuni',
+        'match_days' => 'O\'yin kunlari'
+    ],
+    'teams' => [
+        'team' => "Jamoa",
+        'teams' => 'Jamolar',
+    ],
     'settings' => 'Sozlamalar',
     'edit' => 'Tahrirlash',
     'delete' => 'O\'chirish',
@@ -128,13 +136,11 @@ return [
     'select' => ':attribute tanlang ',
     'dont_delete_departments' => 'O\'chirishni iloji yo\'q',
     'search' => 'Qidirish ...',
-    'choose' => 'tanlang' ,
+    'choose' => 'tanlang',
     'close' => 'Yopish',
     'target_blank' => 'Yangi sahifada ochish',
     'show' => 'Ko\'rish',
     'employee_add_click' => 'Xodimlarga mahsulot tarqatish uchun bosing',
-
-
 
 
 ];

@@ -5,36 +5,34 @@
 
             <div class="card-header">
                 <h4 class="card-header-title">
-                    {{ __('form.gamers.gamers') }}
+                    {{ __('form.days.match_days') }}
                 </h4>
-                <a href="{{ route("gamers.create") }}" class="btn btn-outline-success">
+                <a href="{{ route("days.create") }}" class="btn btn-outline-success">
                     <i class="fa fa-plus button-2x"> {{ __('form.add') }}</i></a>
             </div>
             <div class="card-body collapse show" id="collapse1">
                 <table class="table table-responsive-sm">
+                    <thead>
                     <tr>
                         <th>#</th>
-                        <th>{{ __('validation.attributes.username') }}</th>
-                        <th>{{ __('validation.attributes.surname') }}</th>
-                        <th>{{ __('form.positions.position') }}</th>
+                        <th>{{ __('validation.attributes.day') }}</th>
+                        <th>{{ __('form.teams.teams') }}</th>
                         <th>{{ __('form.actions') }}</th>
                     </tr>
+                    </thead>
                     <tbody>
-                    @foreach($pagination->items() as $gamer)
+                    @foreach($pagination->items() as $day)
                         <tr>
                             <th scope="row">{{ ($pagination->currentpage()-1) * $pagination->perpage() + $loop->index + 1 }}</th>
-                            <td><a href="{{ route('gamers.show',[$gamer->id]) }}">{{ $gamer->name }}</a></td>
-                            <td>{{ $gamer->surname }}</td>
-                            <td>{{ $gamer->position->name}}</td>
+                            <td>{{ $day->day }}</td>
+                            <td>{{ $day->teams_count}}</td>
                             <td>
-                                <a href="{{ route("gamers.edit", [$gamer->id]) }}">
+                                <a href="{{ route("days.edit", [$day->id]) }}">
                                     <i class="fa fa-edit text-purple button-2x"></i></a>
 
-                                <a href="{{ route("gamers.delete", [$gamer->id]) }}" class=""
-                                   onclick="return confirm(this.getAttribute('data-message'));"
+                                <a href="{{ route("days.delete", [$day->id]) }}" class="" onclick="return confirm(this.getAttribute('data-message'));"
                                    data-message="{{ __('form.confirm_delete') }}">
                                     <i class="fa fa-trash-o text-danger button-2x"></i></a>
-                            </td>
                         </tr>
                     @endforeach
                     </tbody>

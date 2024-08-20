@@ -16,6 +16,10 @@
                     <a href="{{ route('gamers.index') }}"><i class="fa fa-group"></i>
                         <span>{{__('form.gamers.gamers')}}</span><span></span></a>
                 </li>
+                <li @if(request()->routeIs('days.*')) class="active" @endif >
+                    <a href="{{ route('days.index') }}"><i class="fa fa-group"></i>
+                        <span>{{__('form.days.match_days')}}</span><span></span></a>
+                </li>
 
 
 

@@ -135,7 +135,7 @@ return [
         'title.ru' => 'Sarlavha (ru)',
         'files.*.file' => 'Fayl',
         'file' => 'Fayl',
-        'username' => 'Foydalanuvchi nomi',
+        'username' => 'Ismi',
         'date' => 'Sanasi',
         'duration' => 'Davomiyligi',
         'begin_date' => 'Boshlanish sanasi',
@@ -146,6 +146,7 @@ return [
         'expiry_date' =>'Yaroqlik muddati',
         'date_given' => 'Berilgan  sanasi',
         'entry_date' => 'Yaroqlik muddati',
+        'day' => 'O\'yin kuni'
     ],
 
 ];

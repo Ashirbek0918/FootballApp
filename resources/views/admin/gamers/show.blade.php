@@ -45,7 +45,7 @@
                             <div class="table-responsive">
                                 <table class="table table-responsive-sm">
                                     <tbody><tr>
-                                        <td><strong>{{ __('validation.attributes.name') }}:</strong></td>
+                                        <td><strong>{{ __('validation.attributes.username') }}:</strong></td>
                                         <td>{{ $item->name }}</td>
                                     </tr>
                                     <tr>
@@ -58,15 +58,15 @@
                                     </tr>
                                     <tr>
                                         <td><strong>{{ __('validation.attributes.age') }}:</strong></td>
-                                        <td>{{ $item->age }}</td>
+                                        <td>{{ $item->age }} </td>
                                     </tr>
                                     <tr>
                                         <td><strong>{{ __('validation.attributes.weight') }}:</strong></td>
-                                        <td>{{ $item->weight }}</td>
+                                        <td>{{ $item->weight }}kg</td>
                                     </tr>
                                     <tr>
                                         <td><strong>{{ __('validation.attributes.height') }}:</strong></td>
-                                        <td>{{ $item->height }}</td>
+                                        <td>{{ $item->height }} cm</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Qo'shilgan vaqti:</strong></td>
