@@ -31,7 +31,7 @@
                                     <td>{{ $teamGamer->gamer->weight }}</td>
                                     <td>{{ $teamGamer->gamer->height }}</td>
                                     <td>
-                                        <a href=" ">
+                                        <a href="{{ route('teams.detachGamer',[$teamGamer->id]) }}">
                                             <i class="fa fa-trash-o text-danger button-2x"></i></a>
                                     </td>
                                 </tr>

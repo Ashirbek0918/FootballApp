@@ -92,4 +92,11 @@ class TeamService
         $teams = Team::query()->with('teamGamers')->where('day_id', '=', $day_id)->get();
         return $teams->transform(fn(Team $team) => TeamData::fromModel($team));
     }
+
+    public function detachGamer(int $id){
+        $teamGamer = TeamGamer::query()->findOrFail($id);
+        $team = $this->getTeam($teamGamer->team_id);
+        $teamGamer->delete();
+        return $team->day_id;
+    }
 }

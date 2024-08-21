@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web;
 
 use Akbarali\ViewModel\PaginationViewModel;
 use App\ActionData\Team\TeamActionData;
-use App\DataObjects\Gamers\GamerData;
 use App\Filters\Gamer\GamerFilter;
 use App\Filters\Team\TeamFilter;
 use App\Http\Controllers\Controller;
@@ -87,11 +86,10 @@ class TeamController extends Controller
 
     public function update(Request $request, $id): RedirectResponse
     {
-        dd($request->all());
-        $this->service->updateTeam(TeamActionData::createFromRequest($request), $id);
-        return redirect()->route('gamers.index')->with('res', [
+        $data = $this->service->updateTeam(TeamActionData::createFromRequest($request), $id);
+        return redirect()->route('days.show',['day_id' => $data->day_id])->with('res', [
             'method' => 'success',
-            'msg' => trans('form.success_update', ['attribute' => trans('form.gamers.gamer')]),
+            'msg' => trans('form.success_delete', ['attribute' => trans('form.teams.team')]),
         ]);
     }
     public function delete(int $id):RedirectResponse
@@ -105,6 +103,15 @@ class TeamController extends Controller
             ]);
         }
         return redirect()->route('days.show',['day_id' => $item->day_id])->with('res', [
+            'method' => 'success',
+            'msg' => trans('form.success_delete', ['attribute' => trans('form.teams.team')]),
+        ]);
+    }
+
+    public function detachGamer(int $id):RedirectResponse
+    {
+     $day_id  = $this->service->detachGamer( $id);
+        return redirect()->route('days.show',['day_id' => $day_id])->with('res', [
             'method' => 'success',
             'msg' => trans('form.success_delete', ['attribute' => trans('form.teams.team')]),
         ]);

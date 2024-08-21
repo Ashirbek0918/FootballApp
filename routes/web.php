@@ -5,7 +5,7 @@ use App\Http\Controllers\web\DashboardController;
 use App\Http\Controllers\web\DayController;
 use App\Http\Controllers\web\GamerController;
 use App\Http\Controllers\web\PositionController;
-use App\Http\Controllers\Web\TeamController;
+use App\Http\Controllers\web\TeamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,6 +66,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::post('store', 'store')->name('store');
         Route::get('edit/{id}', 'edit')->name('edit');
         Route::get('show/{id}', 'show')->name('show');
+        Route::get('detachGamer/{id}', 'detachGamer')->name('detachGamer');
         Route::put('update/{id}', 'update')->name('update');
         Route::get('delete/{id}', 'delete')->name('delete');
     });

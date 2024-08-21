@@ -8,7 +8,7 @@ use App\DataObjects\Gamers\GamerData;
 class TeamGamerData extends DataObjectBase
 {
 
-    public $id;
+    public ?int $id;
     public ?int $gamer_id;
     public ?int $team_id;
     public ?GamerData $gamer;
