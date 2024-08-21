@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignIdFor(Day::class);
             $table->bigInteger('away_team_id');
             $table->bigInteger('home_team_id');
+            $table->integer('home_team_score')->default(0);
+            $table->integer('away_team_score')->default(0);
             $table->timestamps();
         });
     }

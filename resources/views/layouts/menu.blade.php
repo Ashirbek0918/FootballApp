@@ -20,6 +20,10 @@
                     <a href="{{ route('days.index') }}"><i class="fa fa-group"></i>
                         <span>{{__('form.days.match_days')}}</span><span></span></a>
                 </li>
+                <li @if(request()->routeIs('games.*')) class="active" @endif >
+                    <a href="{{ route('games.index') }}"><i class="fa fa-group"></i>
+                        <span>{{__('form.game.games')}}</span><span></span></a>
+                </li>
 
 
 

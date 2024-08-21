@@ -1,7 +1,7 @@
 <?php
+namespace App\Http\Controllers\web;
 
-namespace App\Http\Controllers\Web;
-
+use Akbarali\ActionData\ActionDataException;
 use Akbarali\ViewModel\PaginationViewModel;
 use App\ActionData\Team\TeamActionData;
 use App\Filters\Gamer\GamerFilter;
@@ -15,15 +15,16 @@ use App\ViewModels\Gamer\GamerViewModel;
 use App\ViewModels\Team\TeamViewModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class TeamController extends Controller
 {
     function __construct(
-        protected TeamService $service,
-        protected GamerService  $gamerService,
-        protected PositionService  $positionService,
-        protected DayService  $dayService,
+        protected TeamService     $service,
+        protected GamerService    $gamerService,
+        protected PositionService $positionService,
+        protected DayService      $dayService,
     )
     {
     }
@@ -39,7 +40,9 @@ class TeamController extends Controller
         return (new PaginationViewModel($collection, TeamViewModel::class))->toView('admin.gamers.index');
     }
 
+
     /**
+     * @param Request $request
      * @return View
      */
     public function create(Request $request): View
@@ -48,22 +51,31 @@ class TeamController extends Controller
         $filters[] = GamerFilter::getRequest($request);
         $gamers = $this->gamerService->paginate((int)$request->get('page'), limit: (int)$request->get('limit', 10), filters: $filters);
         $positions = $this->positionService->getPositions();
-        $viewModel = (new PaginationViewModel($gamers,GamerViewModel::class));
-        return $viewModel->toView('admin.team.create',compact('positions','day'));
+        $viewModel = (new PaginationViewModel($gamers, GamerViewModel::class));
+        return $viewModel->toView('admin.team.create', compact('positions', 'day'));
     }
 
-
-    public function store(Request  $request): RedirectResponse
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ActionDataException
+     * @throws ValidationException
+     */
+    public function store(Request $request): RedirectResponse
     {
-        $day_id  = $request->get('day_id');
+        $day_id = $request->get('day_id');
         $this->service->createTeam(TeamActionData::createFromRequest($request));
-        return redirect()->route('days.show',['day_id' => $day_id])->with('res', [
+        return redirect()->route('days.show', ['day_id' => $day_id])->with('res', [
             'method' => 'success',
             'msg' => trans('form.success_create', ['attribute' => trans('form.teams.team')]),
         ]);
     }
 
-    public function show(int $id):View
+    /**
+     * @param int $id
+     * @return View
+     */
+    public function show(int $id): View
     {
         $gamer = $this->service->edit($id);
         $viewModel = TeamViewModel::fromDataObject($gamer);
@@ -71,47 +83,64 @@ class TeamController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $id
      * @return View
      */
-    public function edit(Request$request, int $id): View
+    public function edit(Request $request, int $id): View
     {
         $filters[] = GamerFilter::getRequest($request);
         $gamers = $this->gamerService->paginate((int)$request->get('page'), limit: (int)$request->get('limit', 10), filters: $filters);
         $positions = $this->positionService->getPositions();
         $team = $this->service->edit($id);
-        $viewModel = (new PaginationViewModel($gamers,GamerViewModel::class));
-        return $viewModel->toView('admin.team.edit',compact('positions','team'));
+        $viewModel = (new PaginationViewModel($gamers, GamerViewModel::class));
+        return $viewModel->toView('admin.team.edit', compact('positions', 'team'));
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
+     * @throws ActionDataException
+     * @throws ValidationException
+     */
     public function update(Request $request, $id): RedirectResponse
     {
         $data = $this->service->updateTeam(TeamActionData::createFromRequest($request), $id);
-        return redirect()->route('days.show',['day_id' => $data->day_id])->with('res', [
+        return redirect()->route('days.show', ['day_id' => $data->day_id])->with('res', [
             'method' => 'success',
             'msg' => trans('form.success_delete', ['attribute' => trans('form.teams.team')]),
         ]);
     }
-    public function delete(int $id):RedirectResponse
+
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function delete(int $id): RedirectResponse
     {
         $item = $this->service->getTeam($id);
         $action = $this->service->deleteTeam($id);
-        if (! $action){
-            return redirect()->route('days.show',['day_id' => $item->day_id])->with('res', [
+        if (!$action) {
+            return redirect()->route('days.show', ['day_id' => $item->day_id])->with('res', [
                 'method' => 'error',
                 'msg' => "Bu jamoa o'yin o'tkazgani bois uni o'chirish mumkin emas !"
             ]);
         }
-        return redirect()->route('days.show',['day_id' => $item->day_id])->with('res', [
+        return redirect()->route('days.show', ['day_id' => $item->day_id])->with('res', [
             'method' => 'success',
             'msg' => trans('form.success_delete', ['attribute' => trans('form.teams.team')]),
         ]);
     }
 
-    public function detachGamer(int $id):RedirectResponse
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function detachGamer(int $id): RedirectResponse
     {
-     $day_id  = $this->service->detachGamer( $id);
-        return redirect()->route('days.show',['day_id' => $day_id])->with('res', [
+        $day_id = $this->service->detachGamer($id);
+        return redirect()->route('days.show', ['day_id' => $day_id])->with('res', [
             'method' => 'success',
             'msg' => trans('form.success_delete', ['attribute' => trans('form.teams.team')]),
         ]);

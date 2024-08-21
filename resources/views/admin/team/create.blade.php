@@ -124,7 +124,7 @@
             </div>
             <div class="form-group">
                 <div class="text-center mt-4  mb-4">
-                    <a href="{{ route('teams.index') }}"
+                    <a href="{{ route('days.show',['day_id' => $day->id]) }}"
                        class="btn btn-slack col-md-2">{{{ __('form.cancel') }}}</a>
                     <button class="btn btn-info col-md-2">{{ __('form.add') }}</button>
                 </div>

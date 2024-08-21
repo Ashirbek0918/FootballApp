@@ -3,6 +3,7 @@
 use App\Http\Controllers\web\AuthController;
 use App\Http\Controllers\web\DashboardController;
 use App\Http\Controllers\web\DayController;
+use App\Http\Controllers\web\GameController;
 use App\Http\Controllers\web\GamerController;
 use App\Http\Controllers\web\PositionController;
 use App\Http\Controllers\web\TeamController;
@@ -67,6 +68,16 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('edit/{id}', 'edit')->name('edit');
         Route::get('show/{id}', 'show')->name('show');
         Route::get('detachGamer/{id}', 'detachGamer')->name('detachGamer');
+        Route::put('update/{id}', 'update')->name('update');
+        Route::get('delete/{id}', 'delete')->name('delete');
+    });
+
+    Route::controller(GameController::class)->prefix('games')->name('games.')->group(function (){
+        Route::get('index', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::get('show', 'show')->name('show');
         Route::put('update/{id}', 'update')->name('update');
         Route::get('delete/{id}', 'delete')->name('delete');
     });

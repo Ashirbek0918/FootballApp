@@ -146,7 +146,11 @@ return [
         'expiry_date' =>'Yaroqlik muddati',
         'date_given' => 'Berilgan  sanasi',
         'entry_date' => 'Yaroqlik muddati',
-        'day' => 'O\'yin kuni'
+        'day' => 'O\'yin kuni',
+        'goals' => 'Gollar',
+        'assists' => 'Asistlar',
+        'red_cards' => 'Qizil kartochkalar',
+        'yellow_cards' => 'Sariq kartochkalar'
     ],
 
 ];

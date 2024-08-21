@@ -101,8 +101,14 @@ class DayService
 
     public function getDays()
     {
-        $positions = Day::query()->with('teams')->get();
+        $positions = Day::query()->orderBy('day','DESC')->withCount('teams')->get();
         return $positions->transform(fn(Day $position) => DayData::fromModel($position));
+    }
+
+    public function getLastDay()
+    {
+        $lastDay = Day::query()->latest()->first();
+        return $lastDay;
     }
 
 }
