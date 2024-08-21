@@ -24,7 +24,9 @@
                     @foreach($pagination->items() as $day)
                         <tr>
                             <th scope="row">{{ ($pagination->currentpage()-1) * $pagination->perpage() + $loop->index + 1 }}</th>
-                            <td>{{ $day->day }}</td>
+                            <td>
+                                <a href="{{ route('days.show', ['day_id' => $day->id]) }}">{{ $day->day }}</a>
+                            </td>
                             <td>{{ $day->teams_count}}</td>
                             <td>
                                 <a href="{{ route("days.edit", [$day->id]) }}">

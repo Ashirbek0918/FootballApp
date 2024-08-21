@@ -5,9 +5,14 @@ namespace App\Http\Controllers\web;
 use Akbarali\ActionData\ActionDataException;
 use Akbarali\ViewModel\PaginationViewModel;
 use App\ActionData\Day\DayActionData;
+use App\Filters\Team\TeamFilter;
 use App\Http\Controllers\Controller;
 use App\Services\Web\Day\DayService;
+use App\Services\Web\Gamer\GamerService;
+use App\Services\Web\Position\PositionService;
+use App\Services\Web\Team\TeamService;
 use App\ViewModels\Day\DayViewModel;
+use App\ViewModels\Team\TeamViewModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -17,6 +22,9 @@ class DayController extends Controller
 {
     function __construct(
         protected DayService   $service,
+        protected TeamService $teamService,
+        protected PositionService  $positionService,
+        protected GamerService  $gamerService,
     )
     {
 
@@ -54,9 +62,12 @@ class DayController extends Controller
         ]);
     }
 
-    public function show(int $id)
+    public function show(Request $request)
     {
-        //
+        $day = $this->service->getDay($request->get('day_id'));
+        $filters[] = TeamFilter::getRequest($request);
+        $teams = $this->teamService->paginate(page: (int)$request->get('page'), filters: $filters);
+        return (new PaginationViewModel($teams, TeamViewModel::class))->toView('admin.days.show',compact('day'));
     }
 
     /**

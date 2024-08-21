@@ -5,6 +5,7 @@ use App\Http\Controllers\web\DashboardController;
 use App\Http\Controllers\web\DayController;
 use App\Http\Controllers\web\GamerController;
 use App\Http\Controllers\web\PositionController;
+use App\Http\Controllers\Web\TeamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +51,16 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('delete/{id}', 'delete')->name('delete');
     });
     Route::controller(DayController::class)->prefix('days')->name('days.')->group(function (){
+        Route::get('index', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::get('show', 'show')->name('show');
+        Route::put('update/{id}', 'update')->name('update');
+        Route::get('delete/{id}', 'delete')->name('delete');
+    });
+
+    Route::controller(TeamController::class)->prefix('teams')->name('teams.')->group(function () {
         Route::get('index', 'index')->name('index');
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');

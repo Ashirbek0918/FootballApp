@@ -8,6 +8,7 @@ use App\DataObjects\Position\PositionData;
 use App\Models\Position;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Validation\ValidationException;
 
 class PositionService
 {
@@ -18,7 +19,7 @@ class PositionService
      * @param iterable|null $filters
      * @return DataObjectCollection
      */
-    public function paginate(int $page =1, int $limit =10 ,?iterable $filters = [] ):DataObjectCollection
+    public function paginate(int $page = 1, int $limit = 10, ?iterable $filters = []): DataObjectCollection
     {
         $model = Position::applyEloquentFilters($filters)->with('gamers')
             ->orderBy('positions.id', 'desc');
@@ -36,12 +37,12 @@ class PositionService
     /**
      * @param CreatePositionActionData $actionData
      * @return PositionData
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function createPosition(CreatePositionActiondata $actionData): PositionData
     {
         $actionData->addValidationRules([
-            'name' => ['required', 'string','unique:positions,name'],
+            'name' => ['required', 'string', 'unique:positions,name'],
         ]);
         $actionData->validateException();
         $data = $actionData->all();
@@ -54,12 +55,12 @@ class PositionService
      * @param CreatePositionActionData $actionData
      * @param $id
      * @return PositionData
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function updatePosition(CreatePositionActiondata $actionData, $id): PositionData
     {
         $actionData->addValidationRules([
-            'name' => 'required|unique:positions,name,'.$id,
+            'name' => 'required|unique:positions,name,' . $id,
         ]);
         $actionData->validateException();
         $data = $actionData->all();
@@ -75,7 +76,7 @@ class PositionService
     public function deletePosition(int $id): bool
     {
         $position = $this->getPosition($id);
-        if($position->gamers_count > 0){
+        if ($position->gamers_count > 0) {
             return false;
         }
         $position->delete();
@@ -95,7 +96,7 @@ class PositionService
      * @param int $id
      * @return PositionData
      */
-    public function edit(int $id):PositionData
+    public function edit(int $id): PositionData
     {
         return PositionData::fromModel($this->getPosition($id));
     }

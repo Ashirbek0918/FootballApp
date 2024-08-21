@@ -96,7 +96,7 @@ class GamerService
 
     public function getGamers()
     {
-        $gamers = Gamer::query()->with('position')->get();
+        $gamers = Gamer::query()->with('position','files')->get();
         return $gamers->transform(fn(Gamer $gamer) => GamerData::fromModel($gamer));
     }
 }
