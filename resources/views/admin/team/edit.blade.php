@@ -26,78 +26,7 @@
 
                         <hr style="border: 1px solid slategray; border-radius: 2px;">
                         <div class="card-body collapse show col-md-12" id="gamers-table">
-                            <table class="table table-responsive-sm">
-                                <thead>
-                                <tr>
-                                    <form action="{{ route("gamers.index") }}">
-                                        {{--                                        <td>--}}
-                                        {{--                                            <select--}}
-                                        {{--                                                class="form-control select2 select2-hidden-accessible gamer-select"--}}
-                                        {{--                                                name="limit"--}}
-                                        {{--                                                style="width: 65px" id="limit">--}}
-                                        {{--                                                <option value="5" @selected(request('limit') == 5)>5</option>--}}
-                                        {{--                                                <option--}}
-                                        {{--                                                    value="10" @selected(request('limit') == 10 || is_null(request('limit')))>--}}
-                                        {{--                                                    10--}}
-                                        {{--                                                </option>--}}
-                                        {{--                                                <option value="20" @selected(request('limit') == 20)>20</option>--}}
-                                        {{--                                                <option value="30" @selected(request('limit') == 30)>30</option>--}}
-                                        {{--                                            </select>--}}
-                                        {{--                                        </td>--}}
-                                        {{--                                        <td>--}}
-                                        {{--                                            <input type="text" class="form-control col-md-12 gamer-input"--}}
-                                        {{--                                                   name="search"--}}
-                                        {{--                                                   placeholder="{{ __('form.search') }}"--}}
-                                        {{--                                                   value="{{ request('search') }}">--}}
-                                        {{--                                        </td>--}}
-                                        {{--                                        <td>--}}
-                                        {{--                                            <select--}}
-                                        {{--                                                class="col-md-12 form-control select2 select2-hidden-accessible gamer-select"--}}
-                                        {{--                                                tabindex="-1"--}}
-                                        {{--                                                aria-hidden="true" id="position_id" name="position_id">--}}
-                                        {{--                                                <option value=""--}}
-                                        {{--                                                        selected>{{ __('form.positions.positions') }} {{ __('form.choose') }}</option>--}}
-                                        {{--                                                @foreach($positions as $position)--}}
-                                        {{--                                                    <option--}}
-                                        {{--                                                        value="{{ $position->id }}"--}}
-                                        {{--                                                        @selected(request('position_id') == $position->id)--}}
-                                        {{--                                                    >{{ $position->name }}</option>--}}
-                                        {{--                                                @endforeach--}}
-                                        {{--                                            </select>--}}
-                                        {{--                                        </td>--}}
-                                    </form>
-                                </tr>
-                                <tr>
-                                    <th>#</th>
-                                    <th>{{ __('validation.attributes.name') }}</th>
-                                    <th>{{ __('form.positions.position') }}</th>
-                                    <th>{{ __('validation.attributes.age') }}</th>
-                                    <th>{{ __('validation.attributes.weight') }}</th>
-                                    <th>{{ __('validation.attributes.height') }}</th>
-
-                                </tr>
-                                </thead>
-                                <tbody id="gamer-list">
-                                @foreach($pagination->items() as $gamer)
-                                    <tr class="{{ $gamer->id }}">
-                                        <th><input class="gamers"
-                                                   @checked(in_array($gamer->id, array_column($team->teamGamers, 'gamer_id')))
-                                                   type="checkbox" name="gamers[]" value="{{ $gamer->id }}"></th>
-                                        <td>{{ $gamer->name }}</td>
-                                        <td>{{ $gamer->position->name}}</td>
-                                        <td>{{ $gamer->age }}</td>
-                                        <td>{{ $gamer->weight }}</td>
-                                        <td>{{ $gamer->height }}</td>
-
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            <nav class="d-flex justify-content-between">
-                                <span>{{ __('form.showed') }}: <b>{{ $pagination->count() }}</b></span>
-                                {{ $pagination->links('pagination::bootstrap-4') }}
-                                <span>{{ __('form.total') }}: <b>{{ $pagination->total() }}</b></span>
-                            </nav>
+                            @include('admin.team.gamerEdit')
                         </div>
                     </div>
                 </div>
@@ -149,106 +78,62 @@
 @endsection
 @section('script')
     <script>
-        let items = []
+        let selectedGamers = [];
 
-        const elements = document.getElementById('gamers-all')
-        elements.childNodes.forEach(function (item) {
-            if (item.className) {
-                items.push(item.className)
-            }
-        })
-
-        console.log(items)
         $(document).on('change', '#gamer-list .gamers', function (e) {
-            let id = e.target.getAttribute('value')
-            console.log(items, id, items.includes(id))
-            if (!items.includes(id)) {
-                items.push(id)
-                let element = e.target.parentElement.parentElement.cloneNode(true)
+            let gamerId = e.target.getAttribute('value');
+            let isChecked = e.target.checked;
 
-                $('#gamers-all').append(element)
+            if (isChecked) {
+                if (!selectedGamers.includes(gamerId)) {
+                    selectedGamers.push(gamerId);
+                    let clonedElement = e.target.closest('tr').cloneNode(true);
+                    $('#gamers-all').append(clonedElement);
+                }
             } else {
-                items.splice(items.indexOf(id), 1)
-                $(`#gamers-all .${id}`).remove()
+                selectedGamers.splice(selectedGamers.indexOf(gamerId), 1);
+                $(`#gamers-all .${gamerId}`).remove();
             }
-        })
+        });
+
         $(document).on('click', '.page-link', function (e) {
-            e.preventDefault()
-            let href = e.target.getAttribute('href')
-            $.ajax({
-                url: `${href}&gamer=1`, // Sample API endpoint
-                method: 'GET',
-                // dataType: 'json',
-                success: function (data) {
-                    // Update the content on success
-                    $("#gamers-table").html(data);
-                    $('.gamers').get().forEach(function (item) {
-                        let itemValue = item.getAttribute('value')
-                        if (items.includes(itemValue)) {
-                            item.checked = true
-                        }
-                    })
-                },
-                error: function (error) {
-                    // Handle errors
-                    console.error('Error:', error);
-                }
-            });
-        })
+            e.preventDefault();
+            let href = e.target.getAttribute('href');
+            sendAjaxRequest(href);
+        });
 
-        // filters
         $(document).on('change', '.gamer-select', function (e) {
-            e.preventDefault()
-            let limit = $("#limit").val()
-            let name = $(".gamer-input").val()
-            let position_id = $("#position_id").val()
+            e.preventDefault();
+            updateGamersList();
+        });
 
-            let path = window.location.href.split('?')[0]
-            path += `?name=${name}&limit=${limit}&position_id=${position_id}`
-            // console.log(path)
-
-            console.log(name)
-            $.ajax({
-                url: `${path}&gamer=1`, // Sample API endpoint
-                method: 'GET',
-                // dataType: 'json',
-                success: function (data) {
-                    // Update the content on success
-                    $("#gamers-table").html(data);
-                    $('.gamers').get().forEach(function (item) {
-                        let itemValue = item.getAttribute('value')
-                        if (items.includes(itemValue)) {
-                            item.checked = true
-                        }
-                    })
-                },
-                error: function (error) {
-                    // Handle errors
-                    console.error('Error:', error);
-                }
-            });
-        })
         $(document).on('input', '.gamer-input', function (e) {
-            e.preventDefault()
-            let limit = $("#limit").val()
-            let name = $(".gamer-input").val()
-            let position_id = $("#position_id").val()
+            e.preventDefault();
+            updateGamersList();
+        });
 
-            let path = window.location.href.split('?')[0]
-            path += `?name=${name}&limit=${limit}&position_id=${position_id}`
-            // console.log(path)
+        function updateGamersList() {
+            let limit = $("#limit").val();
+            let search = $(".gamer-input").val();
+            let position_id = $("#position_id").val();
+            let day_id = $('#day_id').val();
 
+            let path = window.location.href.split('?')[0];
+            let query = `?search=${search}&limit=${limit}&position_id=${position_id}&day_id=${day_id}&gamer=1`;
+
+            sendAjaxRequest(path + query);
+        }
+
+        function sendAjaxRequest(url) {
             $.ajax({
-                url: `${path}&gamer=1`, // Sample API endpoint
+                url: `${url}&gamer=1`,
                 method: 'GET',
-                // dataType: 'json',
                 success: function (data) {
-                    // Update the content on success
                     $("#gamers-table").html(data);
-                    $('.gamers').get().forEach(function (item) {
-                        let itemValue = item.getAttribute('value')
-                        if (items.includes(itemValue)) {
-                            item.checked = true
+                    $('.gamers').each(function () {
+                        let gamerId = $(this).val();
+                        if (selectedGamers.includes(gamerId)) {
+                            $(this).prop('checked', true);
                         }
                     })
                     const inputElement = $(".gamer-input")
@@ -257,11 +142,10 @@
                     inputElement.blur().focus().val(originalValue);
                 },
                 error: function (error) {
-                    // Handle errors
                     console.error('Error:', error);
                 }
             });
-        })
+        }
     </script>
 
 @endsection

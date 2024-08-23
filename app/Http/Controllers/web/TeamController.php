@@ -52,6 +52,9 @@ class TeamController extends Controller
         $gamers = $this->gamerService->paginate((int)$request->get('page'), limit: (int)$request->get('limit', 10), filters: $filters);
         $positions = $this->positionService->getPositions();
         $viewModel = (new PaginationViewModel($gamers, GamerViewModel::class));
+        if($request->has('gamer')){
+            return $viewModel->toView('admin.team.gamer', compact('positions', 'day'));
+        }
         return $viewModel->toView('admin.team.create', compact('positions', 'day'));
     }
 
@@ -94,6 +97,9 @@ class TeamController extends Controller
         $positions = $this->positionService->getPositions();
         $team = $this->service->edit($id);
         $viewModel = (new PaginationViewModel($gamers, GamerViewModel::class));
+        if($request->has('gamer')){
+            return $viewModel->toView('admin.team.gamerEdit', compact('positions', 'team'));
+        }
         return $viewModel->toView('admin.team.edit', compact('positions', 'team'));
     }
 
