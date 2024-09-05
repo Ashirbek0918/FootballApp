@@ -57,6 +57,14 @@ class GameService
         return Game::query()->findOrFail($id);
     }
 
+    public function show(int $id): GameData
+    {
+        $game = Game::query()->with(['awayTeam.teamGamers.gamer' => function ($query) {
+            $query->with('position','files');
+        },'homeTeam.teamGamers.gamer'])->findOrFail($id);
+        return  GameData::fromModel($game);
+
+    }
     public function edit(int $id): GameData
     {
         return GameData::fromModel($this->getGame($id));

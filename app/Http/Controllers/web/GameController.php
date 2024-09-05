@@ -74,9 +74,9 @@ class GameController extends Controller
      */
     public function show(int $id): View
     {
-        $gamer = $this->service->edit($id);
-        $viewModel = GameViewModel::fromDataObject($gamer);
-        return $viewModel->toView('admin.games.show');
+        $game = $this->service->show($id);
+        $viewModel = GameViewModel::fromDataObject($game);
+        return $viewModel->toView('admin.game.show');
     }
 
 
