@@ -74,7 +74,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     Route::controller(GameController::class)->prefix('games')->name('games.')->group(function (){
         Route::get('index', 'index')->name('index');
-        Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
         Route::get('edit/{id}', 'edit')->name('edit');
         Route::get('show', 'show')->name('show');

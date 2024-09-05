@@ -34,7 +34,6 @@
                         </form>
                     </tr>
                     <tr>
-                        <th>#</th>
                         <th>{{ __('form.game.home_team') }}</th>
                         <th>{{ __('form.game.away_team') }}</th>
                         <th>{{ __('validation.attributes.home_team_score') }}</th>
@@ -46,16 +45,15 @@
                     @foreach($pagination->items() as $game)
                         <tr onclick="window.location='{{ route("games.show", [$game->id]) }}';"
                             style="cursor: pointer;">
-                            <th scope="row">{{ ($pagination->currentpage()-1) * $pagination->perpage() + $loop->index + 1 }}</th>
                             <td>{{$game->homeTeam->name}}</td>
                             <td>{{$game->awayTeam->name}}</td>
                             <td>{{$game->home_team_score}}</td>
                             <td>{{$game->away_team_score}}</td>
                             <td>
-                                <a href="{{ route("days.edit", [$game->id]) }}">
+                                <a href="{{ route("games.edit", [$game->id]) }}">
                                     <i class="fa fa-edit text-purple button-2x"></i></a>
 
-                                <a href="{{ route("days.delete", [$game->id]) }}" class=""
+                                <a href="{{ route("games.delete", [$game->id]) }}" class=""
                                    onclick="return confirm(this.getAttribute('data-message'));"
                                    data-message="{{ __('form.confirm_delete') }}">
                                     <i class="fa fa-trash-o text-danger button-2x"></i></a>

@@ -13,7 +13,7 @@ class GameService
 
     public function paginate(int $page = 1, int $limit = 10, ?iterable $filters = []): DataObjectCollection
     {
-        $model = Game::applyEloquentFilters($filters)
+        $model = Game::applyEloquentFilters($filters)->with(['awayTeam','homeTeam'])
             ->orderBy('id', 'desc');
         $totalCount = $model->count();
         $skip = $limit * ($page - 1);
@@ -36,7 +36,6 @@ class GameService
         $this->saveGameResult($result);
         return true;
     }
-
     public function updateGame(GameActiondata $actionData, $id): GameData
     {
         $data = $actionData->all();

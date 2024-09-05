@@ -57,17 +57,29 @@
             <div class="brand-card m-4 shadow-1">
                 <div class="card-body">
                     <div class="text-center">
-                        @if($pagination->total() ==0)
+                        @if($pagination->total() < 1)
                             <p>
-                                Bu kun uchu hozircha jamoalar yaratilmagan !
+                                Bu kun uchun hozircha jamoalar yaratilmagan!
                             </p>
+                            <a class="btn btn-outline-success pl-5 pr-5"
+                               href="{{ route('teams.create',['day_id' => $day->id]) }}">
+                                {{ __('form.add') }}
+                            </a>
+                        @elseif($pagination->total() != 1)
+                            @include('admin.game.create')
+                            <span data-toggle="modal" data-target="#m_modal_{{ $day->id }}"> <i class="btn btn-outline-success pl-5 pr-5"> O'yin qo'shish </i> </span>
+                            <a class="btn btn-outline-success pl-5 pr-5"
+                               href="{{ route('teams.create',['day_id' => $day->id]) }}">
+                                {{ __('form.add') }}
+                            </a>
+                        @else
+                            <a class="btn btn-outline-success pl-5 pr-5"
+                               href="{{ route('teams.create',['day_id' => $day->id]) }}">
+                                {{ __('form.add') }}
+                            </a>
                         @endif
-                        <a class="btn btn-outline-success pl-5 pr-5"
-                           href="{{ route('teams.create',['day_id' => $day->id]) }}">
-                            {{ __('form.add') }}
-                        </a>
-
                     </div>
+
                 </div>
             </div>
 

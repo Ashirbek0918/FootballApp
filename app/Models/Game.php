@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
+ * @property Day $day_id
  * @property integer $home_tem_id
  * @property integer $away_team_id
  * @property integer $home_team_score
@@ -20,6 +21,7 @@ class Game extends Model
     protected $table = 'games';
 
     protected $fillable = [
+        'day_id',
         'home_team_id',
         'away_team_id',
         'home_team_score',

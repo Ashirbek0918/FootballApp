@@ -10,8 +10,8 @@ class GameActionData extends ActionDataBase
     public ?int $day_id;
     public ?int $home_team_id;
     public ?int $away_team_id;
-    public ?int $home_team_score;
-    public ?int $away_team_score;
+    public ?int $home_team_score = 0;
+    public ?int $away_team_score = 0;
 
     protected array $rules = [
         'day_id' => 'required|int|exists:days,id',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\web;
 
+use Akbarali\ActionData\ActionDataException;
 use Akbarali\ViewModel\PaginationViewModel;
 use App\ActionData\Game\GameActionData;
 use App\Filters\Game\GameFilter;
@@ -12,6 +13,7 @@ use App\Services\Web\Team\TeamService;
 use App\ViewModels\Game\GameViewModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class GameController extends Controller
@@ -43,16 +45,27 @@ class GameController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ActionDataException
+     * @throws ValidationException
+     */
     public function store(Request $request): RedirectResponse
     {
         $actionData = GameActionData::fromRequest($request);
+//        dd($actionData->all());
         $result = $this->service->createGame($actionData);
         if (!$result) {
-            return redirect()->route('games.index')->with('res', [
+            return redirect()->route('days.show',['day_id' => $actionData->day_id])->with('res', [
                 'method' => 'success',
                 'msg' => trans('form.success_create', ['attribute' => trans('form.game.game')]),
             ]);
         }
+        return redirect()->route('days.show',['day_id' => $actionData->day_id])->with('res', [
+            'method' => 'success',
+            'msg' => trans('form.success_create', ['attribute' => trans('form.game.game')]),
+        ]);
     }
 
     /**

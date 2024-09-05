@@ -150,7 +150,9 @@ return [
         'goals' => 'Gollar',
         'assists' => 'Asistlar',
         'red_cards' => 'Qizil kartochkalar',
-        'yellow_cards' => 'Sariq kartochkalar'
+        'yellow_cards' => 'Sariq kartochkalar',
+        'home_team_score' => 'Mezbon jamoa gollari',
+        'away_team_score' => 'Mehmon jamoa gollari'
     ],
 
 ];
