@@ -11,5 +11,5 @@ class DayData extends DataObjectBase
     public string $day;
     public ?string $content;
     public ?string $time;
-    public $teams_count;
+    public $teams_count = 0;
 }
