@@ -111,4 +111,10 @@ class DayService
         return $lastDay;
     }
 
+    public function expextedDay()
+    {
+        $today = now()->format('Y-m-d');
+        $days = Day::query()->where('day','<=',$today)->first();
+    }
+
 }

@@ -16,6 +16,8 @@
                     <tr>
                         <th>#</th>
                         <th>{{ __('validation.attributes.day') }}</th>
+                        <th>{{ __('validation.attributes.description') }}</th>
+                        <th>{{ __('validation.attributes.duration') }}</th>
                         <th>{{ __('form.teams.teams') }}</th>
                         <th>{{ __('form.actions') }}</th>
                     </tr>
@@ -27,6 +29,8 @@
                             <td>
                                 <a href="{{ route('days.show', ['day_id' => $day->id]) }}">{{ $day->day }}</a>
                             </td>
+                            <td>{{ $day->content}}</td>
+                            <td>{{ $day->time}}</td>
                             <td>{{ $day->teams_count}}</td>
                             <td>
                                 <a href="{{ route("days.edit", [$day->id]) }}">

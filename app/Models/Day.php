@@ -12,7 +12,9 @@ class Day extends Model
     use HasFactory, EloquentFilterTrait;
 
     protected $fillable = [
-        'day'
+        'day',
+        'time',
+        'content'
     ];
 
     public function teams():HasMany
