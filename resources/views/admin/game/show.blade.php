@@ -8,99 +8,63 @@
         <div class="text-center col-md-12">
             <p class="tx-20 text-black-50 mg-0">{{ __('form.game.game_stat') }}</p>
         </div>
-        @dd($item)
+        {{--        @dd($item)--}}
         <div class="col-md-6 mt-4">
             <div class="card mg-b-30 shadow-1">
                 <div class="card-header">
+
                     <h4 class="card-header-title">
                         {{ $item->homeTeam->name }}
                     </h4>
                     <div class="card-header-btn">
-                            {{ $item->home_team_score }}
+                        {{ $item->home_team_score }}
                     </div>
                 </div>
                 <div class="table-responsive collapse show" id="collapse3">
                     <table class="table card-table">
                         <thead>
                         <tr>
-                            <th>Clients</th>
-                            <th>Item Details</th>
-                            <th>Sold</th>
-                            <th>Gain</th>
-                            <th>Actions</th>
+                            <th>{{ __('form.gamers.gamer') }}</th>
+                            <th>{{ __('validation.attributes.goals') }}</th>
+                            <th>{{ __('validation.attributes.assists') }}</th>
+                            <th>{{ __('validation.attributes.yellow_cards') }}</th>
+                            <th>{{ __('validation.attributes.red_cards') }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="pd-l-20">
-                                <a href="javascript:void(0)"><img class="wd-35 rounded-circle img-fluid" src="assets/images/user/user1.png" alt=""></a>
-                            </td>
-                            <td>
-                                <a href="javascript:void(0)" class="d-block">The Dothraki</a>
-                                <span class="tx-11 d-block"><span class="square-8 bg-danger mg-r-5 rounded-circle"></span> 20 remaining</span>
-                            </td>
-                            <td class="valign-middle tx-right">$3,345</td>
-                            <td class="valign-middle"><span class="tx-success"><i class="icon ion-android-arrow-up mg-r-5"></i>33.34%</span> last week</td>
-                            <td class="valign-middle">
-                                <span class="badge-success">Progresses</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pd-l-20">
-                                <a href="javascript:void(0)"><img class="wd-35 rounded-circle img-fluid" src="assets/images/user/user2.png" alt=""></a>
-                            </td>
-                            <td>
-                                <a href="javascript:void(0)" class="d-block">Westeros Sneaker</a>
-                                <span class="tx-11 d-block"><span class="square-8 bg-success mg-r-5 rounded-circle"></span> In stock</span>
-                            </td>
-                            <td class="valign-middle tx-right">$320</td>
-                            <td class="valign-middle"><span class="tx-danger"><i class="icon ion-android-arrow-down mg-r-5"></i>21.20%</span> last week</td>
-                            <td class="valign-middle">
-                                <span class="badge-danger">Progresses</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pd-l-20">
-                                <a href="javascript:void(0)"><img class="wd-35 rounded-circle img-fluid" src="assets/images/user/user3.png" alt=""></a>
-                            </td>
-                            <td>
-                                <a href="javascript:void(0)" class="d-block">Westeros Sneaker</a>
-                                <span class="tx-11 d-block"><span class="square-8 bg-success mg-r-5 rounded-circle"></span> In stock</span>
-                            </td>
-                            <td class="valign-middle tx-right">$150</td>
-                            <td class="valign-middle"><span class="tx-danger"><i class="icon ion-android-arrow-down mg-r-5"></i>21.20%</span> last week</td>
-                            <td class="valign-middle">
-                                <span class="badge-danger">Damages</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pd-l-20">
-                                <a href="javascript:void(0)"><img class="wd-35 rounded-circle img-fluid" src="assets/images/user/user4.png" alt=""></a>
-                            </td>
-                            <td>
-                                <a href="javascript:void(0)" class="d-block">Selonian Hand</a>
-                                <span class="tx-11 d-block"><span class="square-8 bg-success mg-r-5 rounded-circle"></span> In stock</span>
-                            </td>
-                            <td class="valign-middle tx-right">$1,845</td>
-                            <td class="valign-middle"><span class="tx-success"><i class="icon ion-android-arrow-up mg-r-5"></i>23.34%</span> last week</td>
-                            <td class="valign-middle">
-                                <span class="badge-success">Progresses</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pd-l-20">
-                                <a href="javascript:void(0)"><img class="wd-35 rounded-circle img-fluid" src="assets/images/user/user5.png" alt=""></a>
-                            </td>
-                            <td>
-                                <a href="javascript:void(0)" class="d-block">Kel Dor Sunglass</a>
-                                <span class="tx-11 d-block"><span class="square-8 bg-warning mg-r-5 rounded-circle"></span> 45 remaining</span>
-                            </td>
-                            <td class="valign-middle tx-right">$1,355</td>
-                            <td class="valign-middle"><span class="tx-success"><i class="icon ion-android-arrow-up mg-r-5"></i>28.78%</span> last week</td>
-                            <td class="valign-middle">
-                                <span class="badge-success">Progresses</span>
-                            </td>
-                        </tr>
+                        @foreach($item->homeTeam->teamGamers as $gamerData)
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        @if(!empty($gamerData->gamer->files[0]))
+                                            <img class="wd-30 img-fluid"
+                                                 src="{{ Storage::url($gamerData->gamer->files[0]['path']) }}" alt="">
+                                        @else
+                                            <img class="wd-30 img-fluid"
+                                                 src="{{ asset('assets/images/user/user2.png')}}"
+                                                 alt="">
+                                        @endif
+                                        <div class="media-body mg-l-10">
+                                            <p class="lh-1 mg-0">{{ $gamerData->gamer->name }}  {{ $gamerData->gamer->surname }}</p>
+                                            <small> {{ $gamerData->gamer->position->name }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                @if(!empty($gamerData->gamer->gameStats))
+                                    <td>{{ $gamerData->gamer->gameStats[0]->goals }}</td>
+                                    <td>{{ $gamerData->gamer->gameStats[0]->assists }}</td>
+                                    <td>{{ $gamerData->gamer->gameStats[0]->yellow_cards }}</td>
+                                    <td>{{ $gamerData->gamer->gameStats[0]->red_cards }}</td>
+                                @else
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                @endif
+
+
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -114,94 +78,57 @@
             <div class="card mg-b-30 shadow-1">
                 <div class="card-header">
                     <h4 class="card-header-title">
-                        Top Purchases
+                        {{ $item->away_team_score }}
                     </h4>
-                    <div class="card-header-btn">
-
+                    <div class="card-header-btn ">
+                        {{ $item->awayTeam->name }}
                     </div>
                 </div>
                 <div class="table-responsive collapse show" id="collapse3">
                     <table class="table card-table">
                         <thead>
                         <tr>
-                            <th>Clients</th>
-                            <th>Item Details</th>
-                            <th>Sold</th>
-                            <th>Gain</th>
-                            <th>Actions</th>
+                            <th>{{ __('form.gamers.gamer') }}</th>
+                            <th>{{ __('validation.attributes.goals') }}</th>
+                            <th>{{ __('validation.attributes.assists') }}</th>
+                            <th>{{ __('validation.attributes.yellow_cards') }}</th>
+                            <th>{{ __('validation.attributes.red_cards') }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="pd-l-20">
-                                <a href="javascript:void(0)"><img class="wd-35 rounded-circle img-fluid" src="assets/images/user/user1.png" alt=""></a>
-                            </td>
-                            <td>
-                                <a href="javascript:void(0)" class="d-block">The Dothraki</a>
-                                <span class="tx-11 d-block"><span class="square-8 bg-danger mg-r-5 rounded-circle"></span> 20 remaining</span>
-                            </td>
-                            <td class="valign-middle tx-right">$3,345</td>
-                            <td class="valign-middle"><span class="tx-success"><i class="icon ion-android-arrow-up mg-r-5"></i>33.34%</span> last week</td>
-                            <td class="valign-middle">
-                                <span class="badge-success">Progresses</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pd-l-20">
-                                <a href="javascript:void(0)"><img class="wd-35 rounded-circle img-fluid" src="assets/images/user/user2.png" alt=""></a>
-                            </td>
-                            <td>
-                                <a href="javascript:void(0)" class="d-block">Westeros Sneaker</a>
-                                <span class="tx-11 d-block"><span class="square-8 bg-success mg-r-5 rounded-circle"></span> In stock</span>
-                            </td>
-                            <td class="valign-middle tx-right">$320</td>
-                            <td class="valign-middle"><span class="tx-danger"><i class="icon ion-android-arrow-down mg-r-5"></i>21.20%</span> last week</td>
-                            <td class="valign-middle">
-                                <span class="badge-danger">Progresses</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pd-l-20">
-                                <a href="javascript:void(0)"><img class="wd-35 rounded-circle img-fluid" src="assets/images/user/user3.png" alt=""></a>
-                            </td>
-                            <td>
-                                <a href="javascript:void(0)" class="d-block">Westeros Sneaker</a>
-                                <span class="tx-11 d-block"><span class="square-8 bg-success mg-r-5 rounded-circle"></span> In stock</span>
-                            </td>
-                            <td class="valign-middle tx-right">$150</td>
-                            <td class="valign-middle"><span class="tx-danger"><i class="icon ion-android-arrow-down mg-r-5"></i>21.20%</span> last week</td>
-                            <td class="valign-middle">
-                                <span class="badge-danger">Damages</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pd-l-20">
-                                <a href="javascript:void(0)"><img class="wd-35 rounded-circle img-fluid" src="assets/images/user/user4.png" alt=""></a>
-                            </td>
-                            <td>
-                                <a href="javascript:void(0)" class="d-block">Selonian Hand</a>
-                                <span class="tx-11 d-block"><span class="square-8 bg-success mg-r-5 rounded-circle"></span> In stock</span>
-                            </td>
-                            <td class="valign-middle tx-right">$1,845</td>
-                            <td class="valign-middle"><span class="tx-success"><i class="icon ion-android-arrow-up mg-r-5"></i>23.34%</span> last week</td>
-                            <td class="valign-middle">
-                                <span class="badge-success">Progresses</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pd-l-20">
-                                <a href="javascript:void(0)"><img class="wd-35 rounded-circle img-fluid" src="assets/images/user/user5.png" alt=""></a>
-                            </td>
-                            <td>
-                                <a href="javascript:void(0)" class="d-block">Kel Dor Sunglass</a>
-                                <span class="tx-11 d-block"><span class="square-8 bg-warning mg-r-5 rounded-circle"></span> 45 remaining</span>
-                            </td>
-                            <td class="valign-middle tx-right">$1,355</td>
-                            <td class="valign-middle"><span class="tx-success"><i class="icon ion-android-arrow-up mg-r-5"></i>28.78%</span> last week</td>
-                            <td class="valign-middle">
-                                <span class="badge-success">Progresses</span>
-                            </td>
-                        </tr>
+                        @foreach($item->awayTeam->teamGamers as $gamerData)
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        @if(!empty($gamerData->gamer->files[0]))
+                                            <img class="wd-30 img-fluid"
+                                                 src="{{ Storage::url($gamerData->gamer->files[0]['path']) }}" alt="">
+                                        @else
+                                            <img class="wd-30 img-fluid"
+                                                 src="{{ asset('assets/images/user/user2.png')}}"
+                                                 alt="">
+                                        @endif
+                                        <div class="media-body mg-l-10">
+                                            <p class="lh-1 mg-0">{{ $gamerData->gamer->name }}  {{ $gamerData->gamer->surname }}</p>
+                                            <small> {{ $gamerData->gamer->position->name }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                @if(!empty($gamerData->gamer->gameStats))
+                                    <td>{{ $gamerData->gamer->gameStats[0]->goals }}</td>
+                                    <td>{{ $gamerData->gamer->gameStats[0]->assists }}</td>
+                                    <td>{{ $gamerData->gamer->gameStats[0]->yellow_cards }}</td>
+                                    <td>{{ $gamerData->gamer->gameStats[0]->red_cards }}</td>
+                                @else
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                @endif
+
+
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

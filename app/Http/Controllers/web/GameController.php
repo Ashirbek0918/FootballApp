@@ -5,6 +5,7 @@ namespace App\Http\Controllers\web;
 use Akbarali\ActionData\ActionDataException;
 use Akbarali\ViewModel\PaginationViewModel;
 use App\ActionData\Game\GameActionData;
+use App\ActionData\Game\GameUpdateActionData;
 use App\Filters\Game\GameFilter;
 use App\Http\Controllers\Controller;
 use App\Services\Web\Day\DayService;
@@ -54,7 +55,6 @@ class GameController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $actionData = GameActionData::fromRequest($request);
-//        dd($actionData->all());
         $result = $this->service->createGame($actionData);
         if (!$result) {
             return redirect()->route('days.show',['day_id' => $actionData->day_id])->with('res', [
@@ -78,27 +78,37 @@ class GameController extends Controller
         $viewModel = GameViewModel::fromDataObject($game);
         return $viewModel->toView('admin.game.show');
     }
+    public function edit(int $id): View
+    {
+        $game = $this->service->show($id);
+        $viewModel = GameViewModel::fromDataObject($game);
+        return $viewModel->toView('admin.game.edit');
+    }
 
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
+     * @throws ActionDataException
+     * @throws ValidationException
+     */
     public function update(Request $request, $id): RedirectResponse
     {
-        $data = $this->service->updateGame(GameActionData::createFromRequest($request), $id);
-        return redirect()->route('days.show', ['day_id' => $data->day_id])->with('res', [
+        $data = GameUpdateActionData::createFromRequest($request);
+        $data = $this->service->updateGame($data, $id);
+        return redirect()->route('games.index', ['day_id' => $data->day_id])->with('res', [
             'method' => 'success',
-            'msg' => trans('form.success_delete', ['attribute' => trans('form.teams.team')]),
+            'msg' => trans('form.success_update', ['attribute' => trans('form.game.game')]),
         ]);
     }
 
-    /**
-     * @param int $id
-     * @return RedirectResponse
-     */
     public function delete(int $id): RedirectResponse
     {
         $action = $this->service->deleteGame($id);
-        return redirect()->route('days.show')->with('res', [
+        return redirect()->route('games.index',['day_id' => $action])->with('res', [
             'method' => 'success',
-            'msg' => trans('form.success_delete', ['attribute' => trans('form.teams.team')]),
+            'msg' => trans('form.success_delete', ['attribute' => trans('form.game.game')]),
         ]);
     }
 }

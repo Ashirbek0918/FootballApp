@@ -9,6 +9,7 @@ class GameData extends DataObjectBase
 {
 
     public ?int $id;
+    public ?int $day_id;
     public ?int $home_team_id;
     public ?int $away_team_id;
     public ?int $home_team_score;

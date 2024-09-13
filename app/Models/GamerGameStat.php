@@ -17,7 +17,10 @@ class GamerGameStat extends Model
     protected $fillable = [
         'gamer_id',
         'game_id',
+        'team_id',
         'goals',
-        'assists'
+        'assists',
+        'yellow_cards',
+        'red_cards'
     ];
 }

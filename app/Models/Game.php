@@ -43,4 +43,9 @@ class Game extends Model
         return $this->belongsTo(Team::class,'home_team_id','id');
     }
 
+    public function gameStats():HasMany
+    {
+        return $this->hasMany(GamerGameStat::class);
+    }
+
 }

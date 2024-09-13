@@ -2,6 +2,7 @@
 
 use App\Models\Game;
 use App\Models\Gamer;
+use App\Models\Team;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Gamer::class);
             $table->foreignIdFor(Game::class);
+            $table->foreignIdFor(Team::class);
             $table->integer('goals')->default(0);
             $table->integer('assists')->default(0);
             $table->bigInteger('yellow_cards')->default(0);

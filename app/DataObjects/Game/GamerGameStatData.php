@@ -12,5 +12,7 @@ class GamerGameStatData extends DataObjectBase
     public ?int $game_id;
     public ?int $goals;
     public ?int $assists;
+    public ?int $yellow_cards;
+    public ?int $red_cards;
 
 }

@@ -29,7 +29,7 @@ return [
         'accidentrecords' => 'Baxtsiz hodisalar'
     ],
     'positions' => [
-        'position' => "Pozitsiya",
+        'position' => "Pozitsiyasi",
         'positions' => 'Pozitsiyalar',
     ],
     'gamers' => [
