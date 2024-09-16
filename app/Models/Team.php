@@ -41,4 +41,9 @@ class Team extends Model
     {
         return $this->hasMany(GamerGameStat::class);
     }
+
+    public function teamStats():HasMany
+    {
+        return $this->hasMany(TeamGameStat::class);
+    }
 }

@@ -22,3 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('expectedGames',[GameController::class,'expectedGames']);
 Route::get('monthly',[GameController::class,'monthly']);
+Route::get('all',[GameController::class,'gamersAllStatistics']);
+Route::get('allDays',[GameController::class,'allDays']);
+Route::get('teamsRating',[GameController::class,'dayTeams']);
+

@@ -100,6 +100,7 @@ class GameService
 
     public function saveGameResult(GameData $data): void
     {
+//        dd($data);
         if ($data->away_team_score > $data->home_team_score) {
             TeamGameStat::query()->updateOrCreate([
                 'game_id' => $data->id,
@@ -119,7 +120,8 @@ class GameService
                 'won' => false,
 
             ]);
-        } elseif ($data->away_team_score < $data->home_team_score) {
+        }
+        if ($data->away_team_score < $data->home_team_score) {
             TeamGameStat::query()->updateOrCreate([
                 'game_id' => $data->id,
                 'team_id' => $data->away_team_id,
@@ -138,7 +140,7 @@ class GameService
                 'draw' => false,
             ]);
         }
-        if ($data->away_team_score = $data->home_team_score) {
+        if ($data->away_team_score ===  $data->home_team_score) {
 
             TeamGameStat::query()->updateOrCreate([
                 'game_id' => $data->id,

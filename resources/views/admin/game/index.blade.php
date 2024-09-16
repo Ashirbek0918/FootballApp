@@ -7,8 +7,8 @@
                 <h4 class="card-header-title">
                     {{ __('form.game.games') }}
                 </h4>
-                <a href="{{ route("days.create") }}" class="btn btn-outline-success">
-                    <i class="fa fa-plus button-2x"> {{ __('form.add') }}</i></a>
+{{--                <a href="{{ route("days.create") }}" class="btn btn-outline-success">--}}
+{{--                    <i class="fa fa-plus button-2x"> {{ __('form.add') }}</i></a>--}}
             </div>
             <div class="card-body collapse show" id="collapse1">
                 <table class="table table-responsive-sm">

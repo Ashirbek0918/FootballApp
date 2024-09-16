@@ -141,7 +141,7 @@ class DayService
                 DB::raw('COUNT(games.id) as total_games'),
                 DB::raw('SUM(gamer_game_stats.goals) as total_goals'),
                 DB::raw('SUM(gamer_game_stats.assists) as total_assists'),
-                'files.path as file_path' // Fayl yo'lini olish
+                'files.path as file_path'
             )
             ->groupBy('gamers.id', 'gamers.name', 'positions.name', 'files.path')
             ->orderByDesc('total_goals')
@@ -159,7 +159,7 @@ class DayService
         return $gamerStats;
     }
 
-    public function gamersAllStatistics(?int $perPage = 15)
+    public function gamersAllStatistics(?int $dayId = null, ?int $positionId = null,?int $gamerId = null, ?int $perPage = 15)
     {
         $gamerStatsQuery = DB::table('gamer_game_stats')
             ->join('gamers', 'gamer_game_stats.gamer_id', '=', 'gamers.id')
@@ -183,6 +183,88 @@ class DayService
             ->orderByDesc('total_goals')
             ->orderByDesc('total_assists');
 
+        if ($dayId) {
+            $gamerStatsQuery->where('days.id', $dayId);
+        }
+
+        if ($gamerId) {
+            $gamerStatsQuery->where('gamers.id', $gamerId);
+        }
+        if ($positionId) {
+            $gamerStatsQuery->where('positions.id', $positionId);
+        }
         $gamerStats = $gamerStatsQuery->paginate($perPage);
+        return $gamerStats;
     }
+
+    public function alldays()
+    {
+        $today = now()->subDay()->format('Y-m-d');
+        $days = Day::query()->whereDate('day', '<=', $today)
+            ->orderBy('day', 'desc')
+            ->get();
+        return $days;
+    }
+
+    public function getTeamRatingsForDay($dayId)
+    {
+//        $day = Day::query()->find($dayId);
+//        $day = Day::query()->with(['teams.teamStats'])->findOrFail($dayId);
+//
+//        $teams = $day->teams;
+//
+//        $teamRatings = $teams->map(function ($team) {
+//            $playedGames = $team->teamStats->count(); // O'ynagan o'yinlar soni
+//            $wonGames = $team->teamStats->where('won', true)->count(); // Yutgan o'yinlar
+//            $lostGames = $team->teamStats->where('lost', true)->count(); // Yutqazgan o'yinlar
+//            $drawGames = $team->teamStats->where('draw', true)->count(); // Duranglar
+//
+//            $rating = [
+//                'team_name'    => $team->name,
+//                'played_games' => $playedGames,
+//                'won_games'    => $wonGames,
+//                'lost_games'   => $lostGames,
+//                'draw_games'   => $drawGames,
+//            ];
+//
+//            return $rating;
+//        });
+//
+//// Eng ko'p yutgan jamoalar bo'yicha saralash
+//        $sortedByWins = $teamRatings->sortByDesc('won_games');
+//
+//// Eng ko'p o'ynagan jamoalar bo'yicha saralash
+//        $sortedByPlayed = $teamRatings->sortByDesc('played_games');
+//
+//// Durang qilgan jamoalar bo'yicha saralash
+//        $sortedByDraws = $teamRatings->sortByDesc('draw_games');
+//
+//// Yutqazgan jamoalar bo'yicha saralash
+//        $sortedByLosses = $teamRatings->sortByDesc('lost_games');
+
+        $teamRatingsQuery = DB::table('teams')
+            ->leftJoin('team_game_stats', 'teams.id', '=', 'team_game_stats.team_id')
+            ->leftJoin('games', 'team_game_stats.game_id', '=', 'games.id')
+            ->leftJoin('days', 'games.day_id', '=', 'days.id')
+            ->where('teams.day_id', $dayId)
+            ->select(
+                'teams.id as team_id',
+                'teams.name as team_name',
+                DB::raw('COUNT(team_game_stats.id) as played_games'),
+                DB::raw('COALESCE(SUM(team_game_stats.won), 0) as won_games'),
+                DB::raw('COALESCE(SUM(team_game_stats.lost), 0) as lost_games'),
+                DB::raw('COALESCE(SUM(team_game_stats.draw), 0) as draw_games')
+            )
+            ->groupBy('teams.id', 'teams.name')
+            ->orderByDesc('won_games')
+            ->orderByDesc('draw_games')
+            ->orderByDesc('played_games')
+            ->get();
+
+//        return $sortedByDraws;
+        return $teamRatingsQuery;
+    }
+
+
+
 }
