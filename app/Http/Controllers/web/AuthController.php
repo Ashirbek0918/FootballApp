@@ -45,4 +45,12 @@ class AuthController extends Controller
             return back()->withErrors($e->getMessage());
         }
     }
+    public function logout(Request $request): RedirectResponse
+    {
+        auth()->logout();
+        return to_route('login')->with('res', [
+            'method' => 'success',
+            'msg' => trans('messages.auth.logout')
+        ]);
+    }
 }

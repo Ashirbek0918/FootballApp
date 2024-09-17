@@ -37,19 +37,19 @@
     <!--================================-->
     <!-- Sidebar Footer Start -->
     <!--================================-->
-    <div class="sidebar-footer">
-        <a class="pull-left" href="page-profile.html" data-toggle="tooltip" data-placement="top"
-           data-original-title="Profile">
-            <i class="icon-user"></i></a>
-        <a class="pull-left " href="mailbox.html" data-toggle="tooltip" data-placement="top"
-           data-original-title="Mailbox">
-            <i class="icon-envelope"></i></a>
-        <a class="pull-left" href="page-unlock.html" data-toggle="tooltip" data-placement="top"
-           data-original-title="Lockscreen">
-            <i class="icon-lock"></i></a>
-        <a class="pull-left" href="page-singin.html" data-toggle="tooltip" data-placement="top"
-           data-original-title="{{__('auth.logOut')}}">
-            <i class="icon-power"></i></a>
-    </div>
+{{--    <div class="sidebar-footer">--}}
+{{--        <a class="pull-left" href="page-profile.html" data-toggle="tooltip" data-placement="top"--}}
+{{--           data-original-title="Profile">--}}
+{{--            <i class="icon-user"></i></a>--}}
+{{--        <a class="pull-left " href="mailbox.html" data-toggle="tooltip" data-placement="top"--}}
+{{--           data-original-title="Mailbox">--}}
+{{--            <i class="icon-envelope"></i></a>--}}
+{{--        <a class="pull-left" href="page-unlock.html" data-toggle="tooltip" data-placement="top"--}}
+{{--           data-original-title="Lockscreen">--}}
+{{--            <i class="icon-lock"></i></a>--}}
+{{--        <a class="pull-left" href="page-singin.html" data-toggle="tooltip" data-placement="top"--}}
+{{--           data-original-title="{{__('auth.logOut')}}">--}}
+{{--            <i class="icon-power"></i></a>--}}
+{{--    </div>--}}
     <!--/ Sidebar Footer End -->
 </div>

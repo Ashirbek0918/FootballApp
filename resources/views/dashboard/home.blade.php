@@ -9,7 +9,7 @@
     <meta name="keyword" content="">
     <meta name="author" content=""/>
     <!-- Page Title -->
-    <title>Blank Layout | Adminify - Multipurpose Admin Dashboard Template</title>
+    <title>fc.ellikqala.uz</title>
     <!-- Main CSS -->
     <link href="{{ asset("assets/plugins/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet"/>
     <link href="{{ asset("assets/plugins/font-awesome/css/font-awesome.min.css") }}" rel="stylesheet"/>
@@ -52,20 +52,20 @@
         <!--================================-->
         <!-- Sidebar Footer Start -->
         <!--================================-->
-        <div class="sidebar-footer">
-            <a class="pull-left" href="page-profile.html" data-toggle="tooltip" data-placement="top"
-               data-original-title="Profile">
-                <i class="icon-user"></i></a>
-            <a class="pull-left " href="mailbox.html" data-toggle="tooltip" data-placement="top"
-               data-original-title="Mailbox">
-                <i class="icon-envelope"></i></a>
-            <a class="pull-left" href="page-unlock.html" data-toggle="tooltip" data-placement="top"
-               data-original-title="Lockscreen">
-                <i class="icon-lock"></i></a>
-            <a class="pull-left" href="page-singin.html" data-toggle="tooltip" data-placement="top"
-               data-original-title="Sing Out">
-                <i class="icon-power"></i></a>
-        </div>
+{{--        <div class="sidebar-footer">--}}
+{{--            <a class="pull-left" href="page-profile.html" data-toggle="tooltip" data-placement="top"--}}
+{{--               data-original-title="Profile">--}}
+{{--                <i class="icon-user"></i></a>--}}
+{{--            <a class="pull-left " href="mailbox.html" data-toggle="tooltip" data-placement="top"--}}
+{{--               data-original-title="Mailbox">--}}
+{{--                <i class="icon-envelope"></i></a>--}}
+{{--            <a class="pull-left" href="page-unlock.html" data-toggle="tooltip" data-placement="top"--}}
+{{--               data-original-title="Lockscreen">--}}
+{{--                <i class="icon-lock"></i></a>--}}
+{{--            <a class="pull-left" href="page-singin.html" data-toggle="tooltip" data-placement="top"--}}
+{{--               data-original-title="Sing Out">--}}
+{{--                <i class="icon-power"></i></a>--}}
+{{--        </div>--}}
         <!--/ Sidebar Footer End -->
     </div>
     <!--/ Page Sidebar End -->
