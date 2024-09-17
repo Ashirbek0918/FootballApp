@@ -59,9 +59,9 @@
 {{--                        <img src="assets/images/avatar/avatar.png" class="mg-b-10 img-fluid wd-30" alt="">--}}
                     </a>
                     <ul class="dropdown-menu profile-dropdown shadow-2">
-                        <li>
-                            <a href="page-profile.html"><i class="icon-user"></i><span>My Profile</span></a>
-                        </li>
+{{--                        <li>--}}
+{{--                            <a href="page-profile.html"><i class="icon-user"></i><span>My Profile</span></a>--}}
+{{--                        </li>--}}
 
                         <li>
                             <a href="{{ route('auth.logout') }}"><i class="icon-lock"></i><span>Chiqish</span></a>
