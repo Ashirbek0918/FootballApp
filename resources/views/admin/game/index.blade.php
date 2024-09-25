@@ -18,7 +18,7 @@
                             <td>
                                 <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
                                         aria-hidden="true" id="day_id" name="day_id">
-                                    <option value="" selected disabled>{{ __('form.days.day') }} {{ __('form.choose') }}</option>
+                                    <option value="" selected disabled>{{ __('validation.attributes.day') }} {{ __('form.choose') }}</option>
                                     @foreach($days as $day)
                                         <option value="{{ $day->id }}" @selected(request('day_id') == $day->id)>{{ $day->day }}</option>
                                     @endforeach
