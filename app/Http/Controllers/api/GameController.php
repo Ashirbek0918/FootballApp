@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\api;
 
+use Akbarali\ActionData\ActionDataException;
+use App\ActionData\Day\DaySelectActionData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DayTeamsRequest;
 use App\Services\Web\Day\DayService;
@@ -9,6 +11,7 @@ use App\Services\Web\Game\GameService;
 use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class GameController extends Controller
 {
@@ -87,10 +90,14 @@ class GameController extends Controller
         ]);
     }
 
-    public function dayTeams(DayTeamsRequest $request):JsonResponse
+    /**
+     * @throws ValidationException
+     * @throws ActionDataException
+     */
+    public function dayTeams(Request $request):JsonResponse
     {
-        $day_id = $request->input('day_id');
-        $teams = $this->dayService->getTeamRatingsForDay($day_id);
+        $actionData = DaySelectActionData::fromRequest($request);
+        $teams = $this->dayService->getTeamRatingsForDay($actionData->day_id);
         return response()->json([
             'success' => true,
             'data' => $teams
