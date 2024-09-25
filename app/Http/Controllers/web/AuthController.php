@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function index(): View|RedirectResponse
     {
         if (auth()->check()) {
-            return redirect()->route('dashboard.home');
+            return redirect()->route('positions.index');
         }
         return view('auth.login');
     }
@@ -30,14 +30,14 @@ class AuthController extends Controller
     public function login(Request $request): RedirectResponse
     {
         if (auth()->check()) {
-            return redirect()->route('dashboard.home')->with('res', [
+            return redirect()->route('positions.index')->with('res', [
                 'method' => 'success',
                 'msg' => trans('messages.auth.success')
             ]);
         }
         try {
             $authDataObject = $this->service->login(LoginUserActionData::createFromRequest($request));
-            return to_route('dashboard.home')->with('res', [
+            return to_route('positions.index')->with('res', [
                 'method' => 'success',
                 'msg' => trans('messages.auth.success')
             ]);
