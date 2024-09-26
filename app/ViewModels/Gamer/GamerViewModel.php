@@ -22,9 +22,6 @@ class GamerViewModel extends BaseViewModel
     protected function populate():void
     {
         $this->created_at = Carbon::parse($this->created_at)->format('d-m-Y');
-        if(count($this->files) >0 ){
-
-            $this->file = $this->files[0];
-        }
+        $this->file = !empty($this->files) ? $this->files[0] : null;
     }
 }
