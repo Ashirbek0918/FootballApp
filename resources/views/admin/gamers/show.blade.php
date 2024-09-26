@@ -23,7 +23,12 @@
                     <div class="card">
                         <div class="card-body pd-b-0">
                             <div class="mt-4 tx-center">
-                                <img src="{{ Storage::url($item->file['path']) }}" class="rounded-circle" width="150" alt="{{ asset('assets/images/avatar/avatar.png')}}">
+                                @if(!empty($item->file) && isset($item->file['path']))
+                                    <img src="{{ Storage::url($item->file['path']) }}" class="rounded-circle" width="150" alt="{{ $item->name }}">
+                                @else
+                                    <img src="{{ asset('assets/images/avatar/avatar.png') }}" class="rounded-circle" width="150" alt="Default Avatar">
+                                @endif
+
                                 <h4 class="card-title mt-2">{{ $item->name.' '.$item->surname }}</h4>
                                 <h6 class="card-subtitle tx-gray-500 tx-14 pd-y-10">{{ $item->position->name }}</h6>
                                 <p class="tx-gray-500">ID: {{ $item->id }}</p>
